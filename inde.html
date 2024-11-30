@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Picker Tool</title>
+  <style>
+    body {
+        font-family: cursive;
+              text-align: center;
+      padding: 20px;
+    }
+    #color-box {
+      width: 150px;
+      height: 150px;
+      margin: 20px auto;
+      border: 2px solid #000;
+    }
+    #output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    input[type="color"] {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Color Picker Tool</h1>
+  <div id="color-box"></div>
+  <input type="color" id="color-picker">
+  <div id="output">
+    <p>HEX: <span id="hex-value">#000000</span></p>
+    <p>RGB: <span id="rgb-value">rgb(0, 0, 0)</span></p>
+  </div>
+
+  <script>
+    const colorBox = document.getElementById('color-box');
+    const colorPicker = document.getElementById('color-picker');
+    const hexValue = document.getElementById('hex-value');
+    const rgbValue = document.getElementById('rgb-value');
+
+    function hexToRgb(hex) {
+      const bigint = parseInt(hex.slice(1), 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    colorPicker.addEventListener('input', (event) => {
+      const selectedColor = event.target.value;
+      colorBox.style.backgroundColor = selectedColor;
+      hexValue.textContent = selectedColor;
+      rgbValue.textContent = hexToRgb(selectedColor);
+    });
+  </script>
+</body>
+</html>
